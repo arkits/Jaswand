@@ -1,4 +1,4 @@
-package io.github.arkits.jaswand.web;
+package io.github.arkits.jaswand;
 
 public class Constants {
 
@@ -9,6 +9,12 @@ public class Constants {
 		public static final String ROBOTO_CSS_URL = "https://fonts.googleapis.com/css?family=Roboto&display=swap";
 
 		public static final String STICKY_FOOTER_CSS = "<style>body{display:flex;min-height:100vh;flex-direction:column}main{flex:1 0 auto}</style>";
+		public static final String GREY_BACKGROUND_CSS = "<style>body{background-color: #fafafa ;}</style>";
+
+		public static final String RED_COLOR = "red";
+		public static final String GREY_COLOR = "grey";
+		public static final String COLOR_DARKEN = "darken-";
+		public static final String COLOR_LIGHTEN = "lighten-";
 
 	}
 

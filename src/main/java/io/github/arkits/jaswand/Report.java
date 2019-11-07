@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static io.github.arkits.jaswand.web.Constants.*;
+import static io.github.arkits.jaswand.Constants.*;
 import static j2html.TagCreator.*;
 
 public class Report {
@@ -87,8 +87,9 @@ public class Report {
 				head(title(this.reportTitle), link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
 						iff(useRoboto,
 								join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
-										rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"),
-										rawHtml(Style.STICKY_FOOTER_CSS)))),
+								rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
+						rawHtml(Style.STICKY_FOOTER_CSS),
+						rawHtml(Style.GREY_BACKGROUND_CSS)),
 
 				body(main(div(attrs(".container"), h3(this.reportTitle)),
 						each(reportElements, containerTag -> containerTag))));

@@ -6,9 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.arkits.jaswand.web.Constants.*;
+import static io.github.arkits.jaswand.Constants.*;
 import static j2html.TagCreator.*;
-import static java.lang.StrictMath.floor;
 
 public class ElementFactory {
 

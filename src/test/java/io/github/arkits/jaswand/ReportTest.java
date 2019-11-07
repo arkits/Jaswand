@@ -39,7 +39,6 @@ public class ReportTest {
 	public void testReportsGeneration_basic() {
 
 		Report report = new Report("Benchmark Report");
-		report.useRoboto = true;
 
 		List<ContainerTag> elementsToRow = new ArrayList<>();
 		elementsToRow.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
