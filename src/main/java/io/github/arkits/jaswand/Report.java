@@ -41,15 +41,15 @@ public class Report {
 
 	}
 
-	public void setReportTitle(String title){
+	public void setReportTitle(String title) {
 		this.reportTitle = title;
 	}
 
-	public String getReportTitle(){
-		return(this.reportTitle);
+	public String getReportTitle() {
+		return (this.reportTitle);
 	}
 
-	public void add(ContainerTag reportElement){
+	public void add(ContainerTag reportElement) {
 		this.reportElements.add(reportElement);
 	}
 
@@ -79,37 +79,24 @@ public class Report {
 
 	}
 
-	public void compileReport(){
-		
-		validate();
-		
-		jaswandReport = html(
-				head(
-						title(this.reportTitle),
-						link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
-						iff(useRoboto,
-								join(
-										link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
-										rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"),
-										rawHtml(Style.STICKY_FOOTER_CSS)
-								)
-						)
-				),
+	public void compileReport() {
 
-				body(
-						main(
-								div(attrs(".container"),
-										h3(this.reportTitle)
-								),
-								each(reportElements, containerTag -> containerTag)
-						)
-				)
-		);
+		validate();
+
+		jaswandReport = html(
+				head(title(this.reportTitle), link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
+						iff(useRoboto,
+								join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
+										rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"),
+										rawHtml(Style.STICKY_FOOTER_CSS)))),
+
+				body(main(div(attrs(".container"), h3(this.reportTitle)),
+						each(reportElements, containerTag -> containerTag))));
 
 	}
 
 	private void validate() {
-		if(reportTitle == null){
+		if (reportTitle == null) {
 			throw new NullPointerException("reportTitle can not be null");
 		}
 	}

@@ -13,13 +13,13 @@ import java.util.Map;
 
 public class ReportTest {
 
-	private Map <String, String> reportData;
+	private Map<String, String> reportData;
 	private List<String> reportDataHeaders;
 
 	private ElementFactory elementFactory;
 
 	@Before
-	public void setUp(){
+	public void setUp() {
 
 		reportData = new HashMap<>();
 		reportData.put("A", "1 ms");
@@ -47,11 +47,8 @@ public class ReportTest {
 		elementsToRow.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
 
 		ContainerTag container = elementFactory.container();
-		container.with(
-				elementFactory.reportTable("Test 1", reportData, reportDataHeaders),
-				elementFactory.space(),
-				elementFactory.row(elementsToRow)
-		);
+		container.with(elementFactory.reportTable("Test 1", reportData, reportDataHeaders), elementFactory.space(),
+				elementFactory.row(elementsToRow));
 		report.add(container);
 
 		report.export("out/rendered.html");
@@ -64,7 +61,6 @@ public class ReportTest {
 		report.setReportTitle("Test");
 		report.compileReport();
 	}
-
 
 	@Test(expected = NullPointerException.class)
 	public void testReportTitleNotSet() {
@@ -80,7 +76,7 @@ public class ReportTest {
 
 		List<ContainerTag> elementsToRow = new ArrayList<>();
 
-		for(int i = 0; i < 15; i++){
+		for (int i = 0; i < 15; i++) {
 			elementsToRow.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
 		}
 

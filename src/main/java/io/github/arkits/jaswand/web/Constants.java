@@ -10,11 +10,9 @@ public class Constants {
 
 		public static final String STICKY_FOOTER_CSS = "<style>body{display:flex;min-height:100vh;flex-direction:column}main{flex:1 0 auto}</style>";
 
-
-
 	}
 
-	public static class Jaswand{
+	public static class Jaswand {
 
 		public static final String JASWAND_NAME = "Jaswand";
 
