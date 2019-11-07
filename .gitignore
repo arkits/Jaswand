@@ -33,3 +33,8 @@ build
 
 # Ignore output directory
 out/*.html
+
+.vscode
+.classpath
+.project
+.settings/org.eclipse.buildship.core.prefs
