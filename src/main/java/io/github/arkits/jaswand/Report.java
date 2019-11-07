@@ -84,15 +84,22 @@ public class Report {
 		validate();
 
 		jaswandReport = html(
-				head(title(this.reportTitle), link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
-						iff(useRoboto,
-								join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
-								rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
-						rawHtml(Style.STICKY_FOOTER_CSS),
-						rawHtml(Style.GREY_BACKGROUND_CSS)),
-
-				body(main(div(attrs(".container"), h3(this.reportTitle)),
-						each(reportElements, containerTag -> containerTag))));
+			head(
+				title(this.reportTitle),
+				link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
+				iff(useRoboto,
+						join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
+						rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
+				rawHtml(Style.STICKY_FOOTER_CSS),
+				rawHtml(Style.GREY_BACKGROUND_CSS)
+			),
+			body(
+				main(
+					div(attrs(".container"), h3(this.reportTitle)),
+					each(reportElements, containerTag -> containerTag)
+				)
+			)
+		);
 
 	}
 
