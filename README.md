@@ -9,7 +9,7 @@ Jaswand applies the concept of re-usable web components and offers a Java Librar
 
 ## Samples
 
-You can view proof-of-concept sample of a Jaswand generated report [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/arkits/jaswand/master/examples/sample_render.html).  
+You can view proof-of-concept sample of a Jaswand generated report [here](https://arkits.github.io/jaswand/examples/sample_render.html).  
 
 More report and code samples are available in the `/example/` directory.
 
