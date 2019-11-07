@@ -1,8 +1,8 @@
 package io.github.arkits.jaswand;
 
+import io.github.arkits.jaswand.elements.ChartDataset;
 import io.github.arkits.jaswand.elements.ElementFactory;
 import j2html.tags.ContainerTag;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,11 +47,38 @@ public class ReportTest {
 
 		report.enableChartsJs = true;
 
+		List<Integer> yAxis = new ArrayList<>();
+		yAxis.add(100);
+		yAxis.add(200);
+		yAxis.add(300);
+		yAxis.add(400);
+		yAxis.add(500);
+		yAxis.add(600);
+		yAxis.add(700);
+		yAxis.add(800);
+
+		ChartDataset cd = new ChartDataset();
+		cd.data.add(50);
+		cd.data.add(200);
+		cd.data.add(400);
+		cd.data.add(20);
+		cd.data.add(600);
+		cd.data.add(300);
+		cd.data.add(200);
+		cd.data.add(100);
+		cd.fill = false;
+		cd.label = "Data 1";
+		cd.borderColor = "#3e95cd";
+
+		List<ChartDataset> xAxis = new ArrayList<>();
+		xAxis.add(cd);
+
 		ContainerTag container = elementFactory.container();
 		container.with(
 				elementFactory.reportTable("Test 1", reportData, reportDataHeaders),
 				elementFactory.space(),
-				elementFactory.row(elementsToRow)
+				elementFactory.row(elementsToRow),
+				elementFactory.reportChart("example-chart", "Chart Title", xAxis, yAxis)
 		);
 		report.add(container);
 

@@ -95,7 +95,7 @@ public class Report {
 				rawHtml(Style.STICKY_FOOTER_CSS),
 				rawHtml(Style.GREY_BACKGROUND_CSS),
 				iff(enableChartsJs,
-					script().withSrc(Style.CHARTSJS_URL))
+					script().withSrc(ChartJS.CHARTJS_URL))
 			),
 			body(
 				main(

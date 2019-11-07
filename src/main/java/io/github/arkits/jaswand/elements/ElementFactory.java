@@ -6,6 +6,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import io.github.arkits.jaswand.Constants;
+
 import static io.github.arkits.jaswand.Constants.*;
 import static j2html.TagCreator.*;
 
@@ -66,5 +73,50 @@ public class ElementFactory {
 
 		return footer(attrs(".page-footer red"), div(attrs(".container"), div(attrs(".row"),
 				div(attrs(".col l6"), renderedDateText), div(attrs(".col l6 right-align"), jaswandPlug))));
+	}
+
+	public ContainerTag reportChart(
+		String chartId, 
+		String chartTitle,
+		List<ChartDataset> xAxis,
+		List<Integer> yAxis
+	){
+		// Chart Type
+		String chartType = "line";
+		JsonObject chartParam = Constants.ChartJS.generateChartJsData();
+		chartParam.addProperty("type", chartType);
+
+		// Chart Title
+		JsonObject title = new JsonObject();
+		title.addProperty("display", true);
+		title.addProperty("text", chartTitle);
+
+		JsonObject options = new JsonObject();
+		options.add("title", title);
+
+		chartParam.add("options", options);
+
+		// Dataset
+		JsonObject data = new JsonObject();
+
+		GsonBuilder gb = new GsonBuilder();
+		JsonElement labels = gb.create().toJsonTree(yAxis);
+		data.add("labels", labels);
+
+		JsonElement datasets = gb.create().toJsonTree(xAxis);
+		data.add("datasets", datasets);
+
+		chartParam.add("data", data);
+
+		StringBuilder chartScript = new StringBuilder();
+		chartScript.append(String.format("<script>new Chart(document.getElementById('%s'),", chartId));
+		chartScript.append(chartParam.toString());
+		chartScript.append(");</script>");
+
+		return div(attrs(".jaswand-chart"),
+			canvas().withId(chartId).attr("width", "800").attr("height", "450"),
+			rawHtml(chartScript.toString()),
+			br()
+		);
 	}
 }
