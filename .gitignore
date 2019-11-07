@@ -39,3 +39,4 @@ out/*.html
 .project
 .settings/org.eclipse.buildship.core.prefs
 gradle.properties
+gradle/wrapper/gradle-wrapper.properties
