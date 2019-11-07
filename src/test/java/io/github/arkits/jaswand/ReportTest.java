@@ -46,8 +46,11 @@ public class ReportTest {
 		elementsToRow.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
 
 		ContainerTag container = elementFactory.container();
-		container.with(elementFactory.reportTable("Test 1", reportData, reportDataHeaders), elementFactory.space(),
-				elementFactory.row(elementsToRow));
+		container.with(
+				elementFactory.reportTable("Test 1", reportData, reportDataHeaders),
+				elementFactory.space(),
+				elementFactory.row(elementsToRow)
+		);
 		report.add(container);
 
 		report.export("out/rendered.html");
