@@ -1,7 +1,8 @@
 <h1 align="center">Jaswand</h1>
-<p align="center">
-<em>Create beautiful reports, right from Java!</em>
-</p>
+<div align="center">
+<em>Create beautiful reports, right from Java!</em> <br> <br>
+<img src="https://github.com/arkits/jaswand/workflows/Java CI/badge.svg"></img>
+</div>
 
 ## About
 
