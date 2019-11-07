@@ -45,6 +45,8 @@ public class ReportTest {
 		elementsToRow.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
 		elementsToRow.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
 
+		report.enableChartsJs = true;
+
 		ContainerTag container = elementFactory.container();
 		container.with(
 				elementFactory.reportTable("Test 1", reportData, reportDataHeaders),

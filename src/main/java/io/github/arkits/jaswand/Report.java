@@ -23,6 +23,8 @@ public class Report {
 
 	boolean useRoboto;
 
+	boolean enableChartsJs;
+
 	public Report() {
 
 		this.reportCreationDate = new Date();
@@ -91,7 +93,9 @@ public class Report {
 						join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
 						rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
 				rawHtml(Style.STICKY_FOOTER_CSS),
-				rawHtml(Style.GREY_BACKGROUND_CSS)
+				rawHtml(Style.GREY_BACKGROUND_CSS),
+				iff(enableChartsJs,
+					script().withSrc(Style.CHARTSJS_URL))
 			),
 			body(
 				main(

@@ -8,6 +8,8 @@ public class Constants {
 
 		public static final String ROBOTO_CSS_URL = "https://fonts.googleapis.com/css?family=Roboto&display=swap";
 
+		public static final String CHARTSJS_URL = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js";
+
 		public static final String STICKY_FOOTER_CSS = "<style>body{display:flex;min-height:100vh;flex-direction:column}main{flex:1 0 auto}</style>";
 		public static final String GREY_BACKGROUND_CSS = "<style>body{background-color: #fafafa ;}</style>";
 
