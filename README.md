@@ -17,7 +17,11 @@ More report and code samples are available in the `/example/` directory.
 
 ### Getting Started
 
-- Build Jaswand using `./gradlew build` and add it to your project.
+Add the Jaswand dependency to your project:
+
+```groovy
+compile group: 'io.github.arkits', name: 'jaswand', version: '0.0.1'
+```
 
 ### Usage
 
