@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>
+            Report Chart Sample
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <style>body{display:flex;min-height:100vh;flex-direction:column}main{flex:1 0 auto}</style>
+        <style>body{background-color: #fafafa ;}</style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js">
+        </script>
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <h3>
+                    Report Chart Sample
+                </h3>
+            </div>
+            
+                <div class="container">
+                    <div class="jaswand-chart">
+                        <canvas id="example-chart" width="800" height="450">
+                        </canvas>
+                        <script>new Chart(document.getElementById('example-chart'),{"type":"line","data":{"labels":[100,200,300,400,500,600,700,800],"datasets":[{"data":[50,200,400,20,600,300,200,100],"label":"Data 1","borderColor":"#3e95cd","fill":false}]},"options":{"title":{"display":true,"text":"Chart Title"}}});</script>
+                        <br>
+                    </div>
+                </div>
+            
+        </main>
+    </body>
+    <footer class="page-footer red">
+        <div class="container">
+            <div class="row">
+                <div class="col l6">
+                    <p>
+                        Rendered on: 
+                        <code>
+                            Fri Nov 08 14:56:22 PST 2019
+                        </code>
+                    </p>
+                </div>
+                <div class="col l6 right-align">
+                    <p>
+                        Powered by 
+                        <a class="white-text" href="https://github.com/arkits/jaswand">
+                            Jaswand
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
