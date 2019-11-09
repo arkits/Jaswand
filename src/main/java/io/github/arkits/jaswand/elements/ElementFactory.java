@@ -12,6 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import io.github.arkits.jaswand.Constants;
+import j2html.tags.DomContent;
 
 import static io.github.arkits.jaswand.Constants.*;
 import static j2html.TagCreator.*;
@@ -76,11 +77,11 @@ public class ElementFactory {
 	}
 
 	public ContainerTag reportChart(
-		String chartId, 
-		String chartTitle,
-		List<ChartDataset> xAxis,
-		List<Integer> yAxis
-	){
+			String chartId,
+			String chartTitle,
+			List<ChartDataset> xAxis,
+			List<Integer> yAxis
+	) {
 		// Chart Type
 		String chartType = "line";
 		JsonObject chartParam = Constants.ChartJS.generateChartJsData();
@@ -114,9 +115,52 @@ public class ElementFactory {
 		chartScript.append(");</script>");
 
 		return div(attrs(".jaswand-chart"),
-			canvas().withId(chartId).attr("width", "800").attr("height", "450"),
-			rawHtml(chartScript.toString()),
-			br()
+				canvas().withId(chartId).attr("width", "800").attr("height", "450"),
+				rawHtml(chartScript.toString()),
+				br()
+		);
+	}
+
+	public ContainerTag reportCollection(String collectionHeader, List<CollectionElement> collectionElements) {
+		return div(attrs(".jaswand-collection"),
+				ul(attrs(".collection with-header"),
+						iff(collectionHeader != null, li(attrs(".collection-header"), h4(collectionHeader))),
+						each(collectionElements, collectionElement ->
+								li(
+										iffElse(collectionElement.getElementIcon() != null
+														&& collectionElement.getElementIconColor() != null,
+												attrs(".collection-item avatar valign-wrapper"), attrs(".collection-item")),
+
+										iff(collectionElement.getElementIcon() != null
+														&& collectionElement.getElementIconColor() != null,
+												i(attrs(".material-icons circle " + collectionElement.getElementIconColor()), collectionElement.getElementIcon())),
+
+										span(attrs(".title"), collectionElement.getElementName())
+
+								)
+						)
+				)
+		);
+	}
+
+	public ContainerTag reportCollapsible(String collapsibleHeader, List<CollapsibleElement> collapsibleElements) {
+		return div(attrs(".jaswand-collapsible"),
+			iff(collapsibleHeader != null, h4(collapsibleHeader)) ,
+			ul(attrs(".collapsible"),
+				each(collapsibleElements, collapsibleElement ->
+					li(
+						div(attrs(".collapsible-header"),
+								i(attrs(".material-icons"), collapsibleElement.getElementIcon()),
+								rawHtml(collapsibleElement.getElementName())
+						),
+						iff(collapsibleElement.getElementBody() != null,
+							div(attrs(".collapsible-body"),
+								collapsibleElement.getElementBody()
+							)
+						)
+					)
+				)
+			)
 		);
 	}
 }

@@ -22,25 +22,23 @@ public class Report {
 	Date reportCreationDate;
 
 	boolean useRoboto;
-
 	boolean enableChartsJs;
+	boolean enableMaterialIcons;
+	boolean enableMaterializeCssJs;
 
 	public Report() {
-
 		this.reportCreationDate = new Date();
-
 		this.reportElements = new ArrayList<>();
-
+		this.enableMaterialIcons = true;
+		this.enableMaterializeCssJs = true;
 	}
 
 	public Report(String title) {
-
 		this.reportTitle = title;
-
 		this.reportCreationDate = new Date();
-
 		this.reportElements = new ArrayList<>();
-
+		this.enableMaterialIcons = true;
+		this.enableMaterializeCssJs = true;
 	}
 
 	public void setReportTitle(String title) {
@@ -92,11 +90,18 @@ public class Report {
 				iff(useRoboto,
 						join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
 						rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
+				iff(enableMaterialIcons,
+						link().withRel("stylesheet").withHref(Style.MATERIAL_ICONS_URL)),
 				rawHtml(Style.STICKY_FOOTER_CSS),
 				rawHtml(Style.GREY_BACKGROUND_CSS),
 				iff(enableChartsJs,
-					script().withSrc(ChartJS.CHARTJS_URL))
-			),
+					script().withSrc(ChartJS.CHARTJS_URL)),
+				iff(enableMaterializeCssJs,
+						script().withSrc(Style.MATERIALIZE_JS_URL)),
+				script().withType("text/javascript").with(
+							rawHtml(Style.MATERIALIZE_JS_COLLAPSIBLE)
+					)
+				),
 			body(
 				main(
 					div(attrs(".container"), h3(this.reportTitle)),
