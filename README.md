@@ -13,7 +13,7 @@
   
 ## Samples
 
-You can view proof-of-concept sample of a Jaswand generated report [here](https://arkits.github.io/jaswand/samples/sample.html).  
+You can view proof-of-concept sample of a Jaswand generated report [here](https://arkits.github.io/jaswand/samples/showcase.html).  
 
 More reports and code samples are available in the `/example/` directory.
 
