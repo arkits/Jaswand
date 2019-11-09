@@ -7,6 +7,8 @@ nav_order: 2
 
 # Cards
 
+[Demo](https://arkits.github.io/jaswand/samples/reportCards.html){: .btn .fs-5 .mb-4 .mb-md-0 }
+
 Cards can be created from the `Element Factory`.
 
 ```java
@@ -28,6 +30,5 @@ report.add(elementFactory.reportCard("Time Taken to Process", "20 ms"));
 // Export your Report
 report.export("samples/reportCards.html");
 ```
-
 
 ---
