@@ -2,7 +2,6 @@
 layout: default
 title: Cards
 parent: Elements
-nav_order: 2
 ---
 
 # Cards
