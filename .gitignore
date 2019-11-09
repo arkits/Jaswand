@@ -5,3 +5,5 @@ _site
 vendor
 .gradle
 .idea
+build
+gradle.properties
