@@ -8,8 +8,8 @@
 
 - Jaswand applies the concept of re-usable web components and offers a Java Library to generate HTML reports quickly. 
 - Jaswand makes use of the pre-existing data models from [j2html](https://github.com/tipsy/j2html) to render HTML files.
-- Jaswand [MaterializeCSS](https://github.com/Dogfalo/materialize) 1.0 as the CSS framework. 
-- Jaswand's sourceCompatibility is 1.8. 
+- [MaterializeCSS](https://github.com/Dogfalo/materialize) 1.0 is used as the CSS framework. 
+- sourceCompatibility is 1.8. 
   
 ## Samples
 
