@@ -77,7 +77,7 @@ public class ReportIT {
 		Report report = new Report("Report Chart Sample");
 		report.reportCreationDate = reportCreationDate;
 
-		report.enableChartsJs = true;
+		report.enableChartJs = true;
 
 		List<Integer> yAxis = new ArrayList<>();
 		yAxis.add(100);
