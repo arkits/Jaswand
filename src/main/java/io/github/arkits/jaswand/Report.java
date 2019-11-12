@@ -65,7 +65,7 @@ public class Report {
 
 	/**
 	 * Constructs an empty Report with supplied Title.
-	 * @param title
+	 * @param title title of the report
 	 */
 	public Report(String title) {
 		this.reportTitle = title;
@@ -77,7 +77,7 @@ public class Report {
 
 	/**
 	 * Adds a reportElement into the reportElements List
-	 * @param reportElement
+	 * @param reportElement reportElement
 	 */
 	public void add(ContainerTag reportElement) {
 		this.reportElements.add(reportElement);
@@ -85,8 +85,8 @@ public class Report {
 
 	/**
 	 * Exports the Report into a HTML file at the specified location
-	 * @param locationToRenderTo
-	 * @return
+	 * @param locationToRenderTo location to render as a relative path
+	 * @return export HTML as a String
 	 */
 	public String export(String locationToRenderTo) {
 
