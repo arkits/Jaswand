@@ -25,8 +25,18 @@ Make sure to check out the [Jaswand Docs](https://arkits.github.io/jaswand/).
 
 Jaswand is available via the [Central](https://mvnrepository.com/artifact/io.github.arkits/jaswand). Add it your project as a dependency:
 
+```xml
+<dependency>
+  <groupId>io.github.arkits</groupId>
+  <artifactId>jaswand</artifactId>
+  <version>0.0.3</version>
+</dependency>
+```
 ```groovy
-compile group: 'io.github.arkits', name: 'jaswand', version: '0.0.2'
+dependencies {
+    compile group: 'io.github.arkits', name: 'jaswand', version: '0.0.3'
+}
+
 ```
 
 ### Usage
