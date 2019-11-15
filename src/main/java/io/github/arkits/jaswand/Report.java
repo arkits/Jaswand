@@ -103,6 +103,7 @@ public class Report {
 	 * Exports the Report into a HTML file at the specified location
 	 * @param locationToRenderTo location to render as a relative path
 	 * @return export HTML as a String
+	 * @throws IOException IOException can be thrown when writing the file
 	 */
 	public String export(String locationToRenderTo) throws IOException {
 
