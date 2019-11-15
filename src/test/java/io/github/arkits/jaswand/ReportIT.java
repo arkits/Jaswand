@@ -25,7 +25,7 @@ public class ReportIT {
 	@Test
 	public void renderReportTable() throws IOException {
 
-		Report report = new Report("Report Table Sample");
+		Report report = new Report("Offline Report Table Sample");
 		report.reportCreationDate = reportCreationDate;
 
 		Map<String, String> reportData;
@@ -80,8 +80,6 @@ public class ReportIT {
 
 		Report report = new Report("Report Chart Sample");
 		report.reportCreationDate = reportCreationDate;
-
-		report.enableChartJs = true;
 
 		List<Integer> yAxis = new ArrayList<>();
 		yAxis.add(100);

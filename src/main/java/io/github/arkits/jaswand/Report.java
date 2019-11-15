@@ -106,20 +106,26 @@ public class Report {
 	 */
 	public String export(String locationToRenderTo) throws IOException {
 
-		String workspace = locationToRenderTo + "/" + reportTitle.replace(" ", "");
+		// Validate the Report
+		validateReport();
 
+		// Setup the workspace
+		String workspace = locationToRenderTo + "/" + reportTitle.replace(" ", "");
 		makeDir(workspace);
 
+		// Export offline resources
 		if(exportOffline){
 			exportResources(workspace);
 		}
 
+		// Compile the report
 		compileReport();
-
 		addFooter();
 
+		// Render as a HTML String
 		String htmlString = jaswandReport.renderFormatted();
 
+		// Write to file
 		try (FileWriter fileWriter = new FileWriter(workspace + "/index.html")) {
 			fileWriter.write(htmlString);
 		} catch (Exception e) {
@@ -132,16 +138,14 @@ public class Report {
 	/**
 	 * Compiles the Report by assembling the Header, Report Elements and Footer
 	 */
-	public void compileReport() {
-
-		validate();
+	private void compileReport() {
 
 		jaswandReport = html(
 				head(
 						title(this.reportTitle),
 						iffElse(exportOffline,
-								link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
-								link().withRel("stylesheet").withHref(Style.OFFLINE_MATERIALIZE_CSS_URL)),
+								link().withRel("stylesheet").withHref(Style.OFFLINE_MATERIALIZE_CSS_URL),
+								link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL)),
 						iff(useRoboto,
 								join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
 										rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
@@ -151,13 +155,13 @@ public class Report {
 						rawHtml(Style.GREY_BACKGROUND_CSS),
 						iff(enableChartJs,
 								iffElse(exportOffline,
-										script().withSrc(ChartJS.CHARTJS_URL),
-										script().withSrc(ChartJS.OFFLINE_CHARTJS_URL))
+										script().withSrc(ChartJS.OFFLINE_CHARTJS_URL),
+										script().withSrc(ChartJS.CHARTJS_URL))
 						),
 						iff(enableMaterializeCssJs,
 								iffElse(exportOffline,
-										script().withSrc(Style.MATERIALIZE_JS_URL),
-										script().withSrc(Style.OFFLINE_MATERIALIZE_JS_URL))
+										script().withSrc(Style.OFFLINE_MATERIALIZE_JS_URL),
+										script().withSrc(Style.MATERIALIZE_JS_URL))
 						),
 						script().withType("text/javascript").with(
 								rawHtml(Style.MATERIALIZE_JS_COLLAPSIBLE)
@@ -188,10 +192,20 @@ public class Report {
 	/**
 	 * Validates certain aspects of the Report
 	 */
-	private void validate() {
+	public void validateReport() {
+
+		// Make sure reportTitle is set
 		if (reportTitle == null) {
 			throw new NullPointerException("reportTitle can not be null");
 		}
+
+		for(ContainerTag elements : reportElements){
+			String html = elements.render();
+			if(html.contains("jaswand-chart")){
+				this.enableChartJs = true;
+			}
+		}
+
 	}
 
 	/**
@@ -309,6 +323,14 @@ public class Report {
 
 	public void setEnablePoweredByJaswandInFooter(boolean enablePoweredByJaswandInFooter) {
 		this.enablePoweredByJaswandInFooter = enablePoweredByJaswandInFooter;
+	}
+
+	public ContainerTag getJaswandReport() {
+		return jaswandReport;
+	}
+
+	public void setJaswandReport(ContainerTag jaswandReport) {
+		this.jaswandReport = jaswandReport;
 	}
 
 }

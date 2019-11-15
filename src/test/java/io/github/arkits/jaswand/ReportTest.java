@@ -24,7 +24,7 @@ public class ReportTest {
 	public void emptyReportSanity() {
 		Report report = new Report();
 		report.setReportTitle("Test");
-		report.compileReport();
+		report.validateReport();
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class ReportTest {
 		Report report = new Report();
 
 		// Should throw NullPointerException
-		report.compileReport();
+		report.validateReport();
 
 	}
 
