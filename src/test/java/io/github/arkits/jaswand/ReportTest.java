@@ -2,9 +2,11 @@ package io.github.arkits.jaswand;
 
 import io.github.arkits.jaswand.elements.ElementFactory;
 import j2html.tags.ContainerTag;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class ReportTest {
 	 * A IndexOutOfBoundsException must be thrown if elementsToRow is greater than 12.
 	 */
 	@Test(expected = IndexOutOfBoundsException.class)
-	public void tooManyToRow() {
+	public void tooManyToRows() {
 
 		List<ContainerTag> elementsToRow = new ArrayList<>();
 
@@ -53,6 +55,23 @@ public class ReportTest {
 
 		// Should throw IndexOutOfBoundsException
 		elementFactory.row(elementsToRow);
+
+	}
+
+	/**
+	 * Functional test of setEnablePoweredByJaswandInFooter
+	 */
+	@Test
+	public void disablePlugTest() throws IOException {
+
+		Report report = new Report("Plain Jane");
+		String reportHtml = report.export(null);
+		Assert.assertTrue(reportHtml.contains("Powered by"));
+
+		report = new Report("Not a Shill");
+		report.setEnablePoweredByJaswandInFooter(false);
+		reportHtml = report.export(null);
+		Assert.assertFalse(reportHtml.contains("Powered by"));
 
 	}
 
