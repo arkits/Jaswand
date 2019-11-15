@@ -5,9 +5,6 @@ apply plugin: 'signing'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group = 'io.github.arkits'
-version = '0.0.4'
-
 repositories {
     jcenter()
     mavenCentral()
@@ -45,48 +42,4 @@ artifacts {
     archives jar
     archives javadocJar
     archives sourcesJar
-}
-
-signing {
-    sign configurations.archives
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.project {
-                name 'Jaswand'
-                packaging 'jar'
-                description 'Create beautiful reports, right from Java!'
-                url 'https://github.com/arkits/jaswand/'
-
-                scm {
-                    url 'scm:git@github.com:arkits/jaswand.git'
-                    connection 'scm:git@github.com:arkits/jaswand.git'
-                    developerConnection 'scm:git@github.com:arkits/jaswand.git'
-                }
-
-                licenses {
-                    license {
-                        name 'MIT License'
-                        url 'https://github.com/arkits/jaswand/blob/master/LICENSE'
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'arkits'
-                        name 'Archit Khode'
-                    }
-                }
-            }
-        }
-    }
 }
