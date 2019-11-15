@@ -7,7 +7,11 @@ public class Constants {
 	public static class Style {
 
 		public static final String MATERIALIZE_CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css";
+		public static final String OFFLINE_MATERIALIZE_CSS_URL = "css/materialize.css";
+
 		public static final String MATERIALIZE_JS_URL = "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js";
+		public static final String OFFLINE_MATERIALIZE_JS_URL = "js/materialize.min.js";
+
 		public static final String MATERIAL_ICONS_URL = "https://fonts.googleapis.com/icon?family=Material+Icons";
 		public static final String ROBOTO_CSS_URL = "https://fonts.googleapis.com/css?family=Roboto&display=swap";
 
@@ -24,16 +28,14 @@ public class Constants {
 	}
 
 	public static class Jaswand {
-
 		public static final String JASWAND_NAME = "Jaswand";
-
 		public static final String JASWAND_GITHUB_URL = "https://github.com/arkits/jaswand";
-
 	}
 
 	public static class ChartJS {
 
 		public static final String CHARTJS_URL = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js";
+		public static final String OFFLINE_CHARTJS_URL = "js/chart.js";
 
 		public static JsonObject generateChartJsData(){
 

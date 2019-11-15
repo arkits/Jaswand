@@ -8,6 +8,7 @@ import j2html.tags.ContainerTag;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ReportIT {
@@ -22,7 +23,7 @@ public class ReportIT {
 	}
 
 	@Test
-	public void renderReportTable() {
+	public void renderReportTable() throws IOException {
 
 		Report report = new Report("Report Table Sample");
 		report.reportCreationDate = reportCreationDate;
@@ -46,12 +47,15 @@ public class ReportIT {
 		);
 		report.add(container);
 
-		report.export("samples/reportTable.html");
+		report.setExportOffline(true);
+		report.setEnableChartJs(true);
+
+		report.export("samples");
 
 	}
 
 	@Test
-	public void renderReportCards() {
+	public void renderReportCards() throws IOException {
 
 		Report report = new Report("Report Cards Sample");
 		report.reportCreationDate = reportCreationDate;
@@ -67,12 +71,12 @@ public class ReportIT {
 		);
 		report.add(container);
 
-		report.export("samples/reportCards.html");
+		report.export("samples");
 
 	}
 
 	@Test
-	public void renderReportChart() {
+	public void renderReportChart() throws IOException {
 
 		Report report = new Report("Report Chart Sample");
 		report.reportCreationDate = reportCreationDate;
@@ -111,12 +115,12 @@ public class ReportIT {
 		);
 		report.add(container);
 
-		report.export("samples/reportChart.html");
+		report.export("samples");
 
 	}
 
 	@Test
-	public void renderReportCollection() {
+	public void renderReportCollection() throws IOException {
 
 		Report report = new Report("Report Table Sample");
 		report.reportCreationDate = reportCreationDate;
@@ -134,12 +138,12 @@ public class ReportIT {
 		);
 		report.add(container);
 
-		report.export("samples/reportCollection.html");
+		report.export("samples");
 
 	}
 
 	@Test
-	public void renderReportCollapsible(){
+	public void renderReportCollapsible() throws IOException {
 
 		Report report = new Report("Report Collapsible Sample");
 		report.reportCreationDate = reportCreationDate;
@@ -156,7 +160,7 @@ public class ReportIT {
 		);
 		report.add(container);
 
-		report.export("samples/reportCollapsible.html");
+		report.export("samples");
 
 	}
 

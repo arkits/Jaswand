@@ -3,7 +3,8 @@ package io.github.arkits.jaswand;
 import io.github.arkits.jaswand.elements.ElementFactory;
 import j2html.tags.ContainerTag;
 
-import java.io.FileWriter;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,6 +55,17 @@ public class Report {
 	boolean enableMaterializeCssJs;
 
 	/**
+	 * Enable 'Powered by Jaswand' in Footer
+	 */
+	boolean enablePoweredByJaswandInFooter;
+
+	/**
+	 * Export Offline: If enabled, external elements such as stylesheet and css
+	 * files will also be exported and linked locally.
+	 */
+	boolean exportOffline;
+
+	/**
 	 * Constructs an empty Report
 	 */
 	public Report() {
@@ -61,6 +73,8 @@ public class Report {
 		this.reportElements = new ArrayList<>();
 		this.enableMaterialIcons = true;
 		this.enableMaterializeCssJs = true;
+		this.exportOffline = false;
+		this.enablePoweredByJaswandInFooter = true;
 	}
 
 	/**
@@ -73,6 +87,8 @@ public class Report {
 		this.reportElements = new ArrayList<>();
 		this.enableMaterialIcons = true;
 		this.enableMaterializeCssJs = true;
+		this.exportOffline = false;
+		this.enablePoweredByJaswandInFooter = true;
 	}
 
 	/**
@@ -88,7 +104,15 @@ public class Report {
 	 * @param locationToRenderTo location to render as a relative path
 	 * @return export HTML as a String
 	 */
-	public String export(String locationToRenderTo) {
+	public String export(String locationToRenderTo) throws IOException {
+
+		String workspace = locationToRenderTo + "/" + reportTitle.replace(" ", "");
+
+		makeDir(workspace);
+
+		if(exportOffline){
+			exportResources(workspace);
+		}
 
 		compileReport();
 
@@ -96,7 +120,7 @@ public class Report {
 
 		String htmlString = jaswandReport.renderFormatted();
 
-		try (FileWriter fileWriter = new FileWriter(locationToRenderTo)) {
+		try (FileWriter fileWriter = new FileWriter(workspace + "/index.html")) {
 			fileWriter.write(htmlString);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,7 +139,9 @@ public class Report {
 		jaswandReport = html(
 				head(
 						title(this.reportTitle),
-						link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
+						iffElse(exportOffline,
+								link().withRel("stylesheet").withHref(Style.MATERIALIZE_CSS_URL),
+								link().withRel("stylesheet").withHref(Style.OFFLINE_MATERIALIZE_CSS_URL)),
 						iff(useRoboto,
 								join(link().withRel("stylesheet").withHref(Style.ROBOTO_CSS_URL),
 										rawHtml("<style>body {font-family: 'Roboto', sans-serif;}</style>"))),
@@ -124,9 +150,15 @@ public class Report {
 						rawHtml(Style.STICKY_FOOTER_CSS),
 						rawHtml(Style.GREY_BACKGROUND_CSS),
 						iff(enableChartJs,
-								script().withSrc(ChartJS.CHARTJS_URL)),
+								iffElse(exportOffline,
+										script().withSrc(ChartJS.CHARTJS_URL),
+										script().withSrc(ChartJS.OFFLINE_CHARTJS_URL))
+						),
 						iff(enableMaterializeCssJs,
-								script().withSrc(Style.MATERIALIZE_JS_URL)),
+								iffElse(exportOffline,
+										script().withSrc(Style.MATERIALIZE_JS_URL),
+										script().withSrc(Style.OFFLINE_MATERIALIZE_JS_URL))
+						),
 						script().withType("text/javascript").with(
 								rawHtml(Style.MATERIALIZE_JS_COLLAPSIBLE)
 						)
@@ -148,7 +180,7 @@ public class Report {
 
 		ElementFactory elementFactory = new ElementFactory();
 
-		ContainerTag footer = elementFactory.reportFooter(reportCreationDate);
+		ContainerTag footer = elementFactory.reportFooter(reportCreationDate, this.enablePoweredByJaswandInFooter);
 		jaswandReport.with(footer);
 
 	}
@@ -159,6 +191,57 @@ public class Report {
 	private void validate() {
 		if (reportTitle == null) {
 			throw new NullPointerException("reportTitle can not be null");
+		}
+	}
+
+	/**
+	 * Exports internet resources used by the HTML report to the local disk.
+	 * Export resources include JavaScript and CSS files of
+	 * Materialize CSS and Chart.js
+	 * @param locationToExportTo location to export to on the local disk
+	 * @throws IOException
+	 */
+	private void exportResources(String locationToExportTo) throws IOException {
+
+		makeDir(locationToExportTo + "/css");
+		makeDir(locationToExportTo + "/js");
+
+		downloadFromUrl(Style.MATERIALIZE_CSS_URL, locationToExportTo + "/css" + "/materialize.css");
+		downloadFromUrl(Style.MATERIALIZE_JS_URL, locationToExportTo + "/js" + "/materialize.js");
+
+		if(enableChartJs) {
+			downloadFromUrl(ChartJS.CHARTJS_URL, locationToExportTo + "/js" + "/chart.js");
+		}
+
+	}
+
+	/**
+	 * Utility function to create a directory
+	 * @param dir directory to create
+	 */
+	private void makeDir(String dir){
+		File fDir = new File(dir);
+		if (!fDir.exists()) {
+			fDir.mkdir();
+		}
+	}
+
+	/**
+	 * Downloads the resource to the local disk
+	 * @param FILE_URL URL of the file to download
+	 * @param FILE_NAME name of the file to export as
+	 * @throws IOException
+	 */
+	private void downloadFromUrl(String FILE_URL, String FILE_NAME) throws IOException {
+		try (BufferedInputStream in = new BufferedInputStream(new URL(FILE_URL).openStream());
+		     FileOutputStream fileOutputStream = new FileOutputStream(FILE_NAME)) {
+			byte dataBuffer[] = new byte[1024];
+			int bytesRead;
+			while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+				fileOutputStream.write(dataBuffer, 0, bytesRead);
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
@@ -210,6 +293,22 @@ public class Report {
 
 	public void setEnableMaterializeCssJs(boolean enableMaterializeCssJs) {
 		this.enableMaterializeCssJs = enableMaterializeCssJs;
+	}
+
+	public boolean isExportOffline() {
+		return exportOffline;
+	}
+
+	public void setExportOffline(boolean exportOffline) {
+		this.exportOffline = exportOffline;
+	}
+
+	public boolean isEnablePoweredByJaswandInFooter() {
+		return enablePoweredByJaswandInFooter;
+	}
+
+	public void setEnablePoweredByJaswandInFooter(boolean enablePoweredByJaswandInFooter) {
+		this.enablePoweredByJaswandInFooter = enablePoweredByJaswandInFooter;
 	}
 
 }

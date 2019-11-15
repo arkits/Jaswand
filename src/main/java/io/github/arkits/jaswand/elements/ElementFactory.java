@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import io.github.arkits.jaswand.Constants;
-import j2html.tags.DomContent;
 
 import static io.github.arkits.jaswand.Constants.*;
 import static j2html.TagCreator.*;
@@ -65,15 +63,21 @@ public class ElementFactory {
 		return div(attrs(".card"), div(attrs(".card-content"), p(cardTitle), span(attrs(".card-title"), cardContents)));
 	}
 
-	public ContainerTag reportFooter(Date reportCreationDate) {
+	public ContainerTag reportFooter(Date reportCreationDate, boolean showPlug) {
 
 		ContainerTag renderedDateText = p("Rendered on: ").with(code(reportCreationDate.toString()));
 
 		ContainerTag jaswandPlug = p("Powered by ")
 				.with(a(attrs(".white-text"), Jaswand.JASWAND_NAME).withHref(Jaswand.JASWAND_GITHUB_URL));
 
-		return footer(attrs(".page-footer red"), div(attrs(".container"), div(attrs(".row"),
-				div(attrs(".col l6"), renderedDateText), div(attrs(".col l6 right-align"), jaswandPlug))));
+		return footer(attrs(".page-footer red"),
+				div(attrs(".container"),
+						div(attrs(".row"),
+							div(attrs(".col l6"), renderedDateText),
+							iff(showPlug, div(attrs(".col l6 right-align"), jaswandPlug))
+						)
+				)
+		);
 	}
 
 	public ContainerTag reportChart(
