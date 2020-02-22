@@ -29,12 +29,12 @@ Jaswand is available via the [Central](https://mvnrepository.com/artifact/io.git
 <dependency>
   <groupId>io.github.arkits</groupId>
   <artifactId>jaswand</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
 </dependency>
 ```
 ```groovy
 dependencies {
-    compile group: 'io.github.arkits', name: 'jaswand', version: '0.0.4'
+    compile group: 'io.github.arkits', name: 'jaswand', version: '0.0.5'
 }
 
 ```
