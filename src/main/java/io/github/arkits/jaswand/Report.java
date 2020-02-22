@@ -222,11 +222,11 @@ public class Report {
 		makeDir(locationToExportTo + "/css");
 		makeDir(locationToExportTo + "/js");
 
-		downloadFromUrl(Style.MATERIALIZE_CSS_URL, locationToExportTo + "/css" + "/materialize.css");
-		downloadFromUrl(Style.MATERIALIZE_JS_URL, locationToExportTo + "/js" + "/materialize.js");
+		downloadFromUrl(Style.MATERIALIZE_CSS_URL, locationToExportTo + "/" + Style.OFFLINE_MATERIALIZE_CSS_URL);
+		downloadFromUrl(Style.MATERIALIZE_JS_URL, locationToExportTo + "/" + Style.OFFLINE_MATERIALIZE_JS_URL);
 
 		if(enableChartJs) {
-			downloadFromUrl(ChartJS.CHARTJS_URL, locationToExportTo + "/js" + "/chart.js");
+			downloadFromUrl(ChartJS.CHARTJS_URL, locationToExportTo + "/" + ChartJS.OFFLINE_CHARTJS_URL);
 		}
 
 	}
