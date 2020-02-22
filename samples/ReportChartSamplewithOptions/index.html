@@ -2,15 +2,15 @@
     <head>
         <meta charset="UTF-8">
         <title>
-            Offline Report Table Sample
+            Report Chart Sample with Options
         </title>
-        <link rel="stylesheet" href="css/materialize.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>body{display:flex;min-height:100vh;flex-direction:column}main{flex:1 0 auto}</style>
         <style>body{background-color: #fafafa ;}</style>
-        <script src="js/chart.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js">
         </script>
-        <script src="js/materialize.min.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
         </script>
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded",function(){var e=document.querySelectorAll(".collapsible");M.Collapsible.init(e,{})});
@@ -20,32 +20,16 @@
         <main>
             <div class="container">
                 <h3>
-                    Offline Report Table Sample
+                    Report Chart Sample with Options
                 </h3>
             </div>
             
                 <div class="container">
-                    <div class="jaswand-table">
-                        <h4>
-                            Test 1
-                        </h4>
-                        <table class="highlight">
-                            <thead>
-                                <tr>
-                                    
-                                        <th>
-                                            Class Name
-                                        </th>
-                                        <th>
-                                            Time Taken
-                                        </th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>A</td><td>1 ms</td></tr><tr><td>B</td><td>2 ms</td></tr><tr><td>C</td><td>3 ms</td></tr><tr><td>D</td><td>4 ms</td></tr>
-                            </tbody>
-                        </table>
+                    <div class="jaswand-chart">
+                        <canvas id="example-chart" width="800" height="400">
+                        </canvas>
+                        <script>new Chart(document.getElementById('example-chart'),{"type":"line","data":{"labels":[100,200,300,400,500,600,700,800],"datasets":[{"data":[50,200,400,20,600,300,200,100],"label":"Data 1","borderColor":"#3e95cd","fill":false}]},"options":{"title":{"display":true,"text":"Report Chart Sample with Options"},"legend":{"display":true,"position":"right"}}});</script>
+                        <br>
                     </div>
                 </div>
             
