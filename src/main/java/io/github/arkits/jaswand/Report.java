@@ -143,6 +143,7 @@ public class Report {
 
 		jaswandReport = html(
 				head(
+						rawHtml("<meta charset=\"UTF-8\">"),
 						title(this.reportTitle),
 						iffElse(exportOffline,
 								link().withRel("stylesheet").withHref(Style.OFFLINE_MATERIALIZE_CSS_URL),

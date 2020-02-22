@@ -1,5 +1,6 @@
 package io.github.arkits.jaswand;
 
+import com.google.gson.JsonObject;
 import io.github.arkits.jaswand.elements.ChartDataset;
 import io.github.arkits.jaswand.elements.CollapsibleElement;
 import io.github.arkits.jaswand.elements.CollectionElement;
@@ -118,6 +119,61 @@ public class ReportIT {
 	}
 
 	@Test
+	public void renderReportChartWithOptions() throws IOException {
+
+		Report report = new Report("Report Chart Sample with Options");
+		report.reportCreationDate = reportCreationDate;
+
+		List<Integer> yAxis = new ArrayList<>();
+		yAxis.add(100);
+		yAxis.add(200);
+		yAxis.add(300);
+		yAxis.add(400);
+		yAxis.add(500);
+		yAxis.add(600);
+		yAxis.add(700);
+		yAxis.add(800);
+
+		ChartDataset cd = new ChartDataset();
+		cd.data.add(50);
+		cd.data.add(200);
+		cd.data.add(400);
+		cd.data.add(20);
+		cd.data.add(600);
+		cd.data.add(300);
+		cd.data.add(200);
+		cd.data.add(100);
+		cd.fill = false;
+		cd.label = "Data 1";
+		cd.borderColor = "#3e95cd";
+
+		List<ChartDataset> xAxis = new ArrayList<>();
+		xAxis.add(cd);
+
+		JsonObject options = new JsonObject();
+
+		JsonObject title = new JsonObject();
+		title.addProperty("display", true);
+		title.addProperty("text", "Report Chart Sample with Options");
+
+		JsonObject legend = new JsonObject();
+		legend.addProperty("display", true);
+		legend.addProperty("position", "right");
+
+		options.add("title", title);
+		options.add("legend", legend);
+
+		ContainerTag container = elementFactory.container();
+		container.with(
+				elementFactory.reportChart("example-chart", xAxis, yAxis, options, 800, 400)
+		);
+		report.add(container);
+
+		report.export("samples");
+
+	}
+
+	@Test
 	public void renderReportCollection() throws IOException {
 
 		Report report = new Report("Report Table Sample");
@@ -155,6 +211,68 @@ public class ReportIT {
 				elementFactory.reportCollapsible("Collapsible Header", collapsibleElements),
 				elementFactory.line(),
 				elementFactory.reportCollapsible(null, collapsibleElements)
+		);
+		report.add(container);
+
+		report.export("samples");
+
+	}
+
+	@Test
+	public void renderCardContainer() throws IOException {
+
+		Report report = new Report("Card Container Sample");
+		report.reportCreationDate = reportCreationDate;
+
+		// Table
+		Map<String, String> reportData;
+		List<String> reportDataHeaders;
+
+		reportData = new HashMap<>();
+		reportData.put("A", "1 ms");
+		reportData.put("B", "2 ms");
+		reportData.put("C", "3 ms");
+		reportData.put("D", "4 ms");
+
+		reportDataHeaders = new ArrayList<>();
+		reportDataHeaders.add("Class Name");
+		reportDataHeaders.add("Time Taken");
+
+		// Chart
+		List<Integer> yAxis = new ArrayList<>();
+		yAxis.add(100);
+		yAxis.add(200);
+		yAxis.add(300);
+		yAxis.add(400);
+		yAxis.add(500);
+		yAxis.add(600);
+		yAxis.add(700);
+		yAxis.add(800);
+
+		ChartDataset cd = new ChartDataset();
+		cd.data.add(50);
+		cd.data.add(200);
+		cd.data.add(400);
+		cd.data.add(20);
+		cd.data.add(600);
+		cd.data.add(300);
+		cd.data.add(200);
+		cd.data.add(100);
+		cd.fill = false;
+		cd.label = "Data 1";
+		cd.borderColor = "#3e95cd";
+
+		List<ChartDataset> xAxis = new ArrayList<>();
+		xAxis.add(cd);
+
+		ContainerTag container = elementFactory.container();
+		container.with(
+			elementFactory.cardContainer(
+				elementFactory.reportTable("Test 1", reportData, reportDataHeaders)
+			),
+			elementFactory.cardContainer(
+				elementFactory.reportChart("example-chart", "Chart Title", xAxis, yAxis)
+			)
 		);
 		report.add(container);
 

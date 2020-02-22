@@ -125,6 +125,45 @@ public class ElementFactory {
 		);
 	}
 
+	public ContainerTag reportChart(
+			String chartId,
+			List<ChartDataset> xAxis,
+			List<Integer> yAxis,
+			JsonObject options,
+			int width,
+			int height
+	) {
+		// Chart Type
+		String chartType = "line";
+		JsonObject chartParam = Constants.ChartJS.generateChartJsData();
+		chartParam.addProperty("type", chartType);
+
+		chartParam.add("options", options);
+
+		// Dataset
+		JsonObject data = new JsonObject();
+
+		GsonBuilder gb = new GsonBuilder();
+		JsonElement labels = gb.create().toJsonTree(yAxis);
+		data.add("labels", labels);
+
+		JsonElement datasets = gb.create().toJsonTree(xAxis);
+		data.add("datasets", datasets);
+
+		chartParam.add("data", data);
+
+		StringBuilder chartScript = new StringBuilder();
+		chartScript.append(String.format("<script>new Chart(document.getElementById('%s'),", chartId));
+		chartScript.append(chartParam.toString());
+		chartScript.append(");</script>");
+
+		return div(attrs(".jaswand-chart"),
+				canvas().withId(chartId).attr("width", width).attr("height", height),
+				rawHtml(chartScript.toString()),
+				br()
+		);
+	}
+
 	public ContainerTag reportCollection(String collectionHeader, List<CollectionElement> collectionElements) {
 		return div(attrs(".jaswand-collection"),
 				ul(attrs(".collection with-header"),
@@ -164,6 +203,14 @@ public class ElementFactory {
 						)
 					)
 				)
+			)
+		);
+	}
+
+	public ContainerTag cardContainer(ContainerTag children){
+		return div(attrs(".jaswand-card"),
+			div(attrs(".card-panel"),
+					children
 			)
 		);
 	}
